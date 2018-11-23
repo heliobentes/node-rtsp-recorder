@@ -29,15 +29,15 @@ const RTSPRecorder = class {
   }
 
   getTodayPath() {
-    return path.join(this.getDirectoryPath(), moment().format('MMM-Do-YY'))
+    return this.getDirectoryPath()
   }
 
   getMediaTypePath() {
-    return path.join(this.getTodayPath(), this.categoryType)
+    return this.getTodayPath()
   }
 
   getFilename(folderPath) {
-    return path.join(folderPath, moment().format() + this.getExtenstion())
+    return path.join(this.folder, (this.name ? this.name : '')+this.getExtenstion())
   }
 
   getExtenstion() {
@@ -132,9 +132,9 @@ const RTSPRecorder = class {
     }
 
     this.writeStream = null
-    const folderPath = this.getMediaTypePath()
-    fh.createDirIfNotExists(folderPath)
-    const fileName = this.getFilename(folderPath)
+    //const folderPath = this.getMediaTypePath()
+    //fh.createDirIfNotExists(folderPath)
+    const fileName = this.getFilename()
     this.writeStream = this.getChildProcess(fileName)
 
     this.writeStream.once('exit', () => {
